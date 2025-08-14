@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoEduardo</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #ffffff;
+            --text-secondary: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --accent-hover: #1f6feb;
+            --border-color: #30363d;
+            --success-color: #238636;
+            --danger-color: #da3633;
+            --success-text: #3fb950;
+            --danger-text: #f85149;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .container-fluid {
+            max-width: 1200px;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 12px 12px 0 0 !important;
+            padding: 1.25rem;
+        }
+
+        .card-header h3 {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .form-control, .form-select {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+            box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+
+        .form-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .form-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 0.875rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-hover) 0%, #0969da 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(88, 166, 255, 0.4);
+            color: #ffffff;
+        }
+
+        .btn-outline-secondary {
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            background: transparent;
+            border-radius: 8px;
+            padding: 0.875rem 1.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .btn-outline-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+        }
+
+        .alert {
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(35, 134, 54, 0.25);
+            color: var(--success-text);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .alert-danger {
+            background: rgba(218, 54, 51, 0.25);
+            color: var(--danger-text);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .alert-info {
+            background: rgba(88, 166, 255, 0.25);
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .result-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            word-break: break-all;
+            position: relative;
+            overflow-wrap: break-word;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .result-box em {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 6px;
+            color: #ffffff;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            font-size: 0.875rem;
+        }
+
+        .copy-btn:hover {
+            opacity: 1;
+            background: var(--accent-hover);
+            transform: scale(1.05);
+        }
+
+        .header-title {
+            background: linear-gradient(135deg, var(--accent-color), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .input-group-text {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .formula-display {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .mode-indicator {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mode-encrypt {
+            color: var(--success-text);
+            border-color: var(--success-color);
+            background: rgba(35, 134, 54, 0.1);
+        }
+
+        .mode-decrypt {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        /* Mejoras específicas para móviles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            .container-fluid {
+                padding: 0.75rem;
+            }
+
+            .header-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .header-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .card {
+                margin-bottom: 1.5rem;
+                border-radius: 10px;
+            }
+
+            .card-header {
+                padding: 1rem;
+            }
+
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 0.75rem;
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .form-control, .form-select {
+                padding: 1rem;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            .form-label {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .result-box {
+                padding: 1.25rem;
+                min-height: 100px;
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+            }
+
+            .copy-btn {
+                top: 8px;
+                right: 8px;
+                padding: 0.4rem;
+            }
+
+            .formula-display {
+                padding: 1rem;
+                font-size: 0.95rem;
+                margin: 0.75rem 0;
+            }
+
+            .alert {
+                padding: 0.875rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            /* Mejor espaciado en móviles */
+            .mb-3 {
+                margin-bottom: 1.25rem !important;
+            }
+
+            .mb-4 {
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* Ajustar el grid en móviles */
+            .row > .col-md-6 {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-title {
+                font-size: 1.75rem;
+            }
+
+            .formula-display {
+                font-size: 0.875rem;
+                padding: 0.875rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.25rem;
+            }
+
+            .result-box {
+                font-size: 0.875rem;
+                padding: 1rem;
+            }
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mejoras adicionales de accesibilidad */
+        .btn:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        .form-control:focus {
+            outline: none;
+        }
+
+        /* Mejor contraste para texto pequeño */
+        small, .small {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Footer mejorado */
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 2rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="header-title">
+                <i class="bi bi-shield-lock"></i> CriptoEduardo
+            </h1>
+        </div>
+
+        <!-- Fórmulas -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="formula-display">
+                    <strong>Encriptación:</strong> C = (P × K) + S
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="formula-display">
+                    <strong>Desencriptación:</strong> P = (C - S) ÷ K
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Panel de Entrada -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="bi bi-pencil-square"></i> Configuración
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Indicador de modo -->
+                        <div id="modeIndicator" class="mode-indicator mode-encrypt">
+                            <i class="bi bi-lock"></i> Modo: Encriptación (ingresa texto)
+                        </div>
+
+                        <!-- Mensaje -->
+                        <div class="mb-3">
+                            <label for="messageInput" class="form-label">
+                                <i class="bi bi-chat-text"></i> Mensaje
+                            </label>
+                            <textarea 
+                                class="form-control" 
+                                id="messageInput" 
+                                rows="4" 
+                                placeholder="Ingresa tu mensaje aquí..."
+                                maxlength="1000"
+                            ></textarea>
+                            <div class="form-text" id="inputHelp">
+                                Para encriptar: solo letras (A-Z, Ñ) y espacios. Para desencriptar: números separados por espacios.
+                            </div>
+                        </div>
+
+                        <!-- Clave y Desplazamiento -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="keyInput" class="form-label">
+                                    <i class="bi bi-key"></i> Clave (K)
+                                </label>
+                                <input 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="keyInput" 
+                                    placeholder="Ej: 3"
+                                    min="1"
+                                    max="100"
+                                    value="3"
+                                >
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="shiftInput" class="form-label">
+                                    <i class="bi bi-arrow-right"></i> Desplazamiento (S)
+                                </label>
+                                <input 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="shiftInput" 
+                                    placeholder="Ej: 5"
+                                    min="0"
+                                    max="1000"
+                                    value="5"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button class="btn btn-primary" id="encryptBtn">
+                                <i class="bi bi-lock"></i> Encriptar
+                            </button>
+                            <button class="btn btn-outline-secondary" id="decryptBtn">
+                                <i class="bi bi-unlock"></i> Desencriptar
+                            </button>
+                            <button class="btn btn-outline-secondary" id="clearBtn">
+                                <i class="bi bi-trash"></i> Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de Resultados -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="bi bi-file-text"></i> Resultados
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Alertas -->
+                        <div id="alertContainer"></div>
+
+                        <!-- Resultado Encriptado -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                <i class="bi bi-shield-lock"></i> Mensaje Encriptado (números)
+                            </label>
+                            <div class="result-box" id="encryptedResult">
+                                <button class="copy-btn" id="copyEncrypted" title="Copiar">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
+                                <em>El resultado aparecerá aquí...</em>
+                            </div>
+                        </div>
+
+                        <!-- Resultado Desencriptado -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-shield-unlock"></i> Mensaje Desencriptado (texto)
+                            </label>
+                            <div class="result-box" id="decryptedResult">
+                                <button class="copy-btn" id="copyDecrypted" title="Copiar">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
+                                <em>El resultado aparecerá aquí...</em>
+                            </div>
+                        </div>
+
+                        <!-- Información adicional -->
+                        <div class="mt-3">
+                            <small>
+                                <i class="bi bi-info-circle"></i> 
+                                Los números representan las posiciones encriptadas de cada letra. Alfabeto: A-Z, Ñ (27 letras).
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center footer-text">
+            <small>
+                <i class="bi bi-shield-check"></i> 
+                CriptoEduardo © 2025 - @_eduardo.nunez
+            </small>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        class CryptoApp {
+            constructor() {
+                this.initializeElements();
+                this.bindEvents();
+                // Alfabeto español con Ñ incluida
+                this.alphabet = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+                this.currentMode = 'encrypt'; // 'encrypt' o 'decrypt'
+                this.updateModeIndicator();
+            }
+
+            initializeElements() {
+                this.messageInput = document.getElementById('messageInput');
+                this.keyInput = document.getElementById('keyInput');
+                this.shiftInput = document.getElementById('shiftInput');
+                this.encryptBtn = document.getElementById('encryptBtn');
+                this.decryptBtn = document.getElementById('decryptBtn');
+                this.clearBtn = document.getElementById('clearBtn');
+                this.encryptedResult = document.getElementById('encryptedResult');
+                this.decryptedResult = document.getElementById('decryptedResult');
+                this.alertContainer = document.getElementById('alertContainer');
+                this.copyEncrypted = document.getElementById('copyEncrypted');
+                this.copyDecrypted = document.getElementById('copyDecrypted');
+                this.modeIndicator = document.getElementById('modeIndicator');
+                this.inputHelp = document.getElementById('inputHelp');
+            }
+
+            bindEvents() {
+                this.encryptBtn.addEventListener('click', () => this.encrypt());
+                this.decryptBtn.addEventListener('click', () => this.decrypt());
+                this.clearBtn.addEventListener('click', () => this.clearAll());
+                this.copyEncrypted.addEventListener('click', () => this.copyToClipboard('encrypted'));
+                this.copyDecrypted.addEventListener('click', () => this.copyToClipboard('decrypted'));
+                
+                // Validación en tiempo real y detección de modo
+                this.messageInput.addEventListener('input', (e) => this.handleInputChange(e));
+                this.keyInput.addEventListener('input', () => this.validateNumbers());
+                this.shiftInput.addEventListener('input', () => this.validateNumbers());
+            }
+
+            handleInputChange(e) {
+                const value = e.target.value;
+                
+                // Detectar modo automáticamente
+                if (/^\s*[\d\s]+\s*$/.test(value) && value.trim()) {
+                    // Solo números y espacios - modo desencriptar
+                    this.currentMode = 'decrypt';
+                    this.validateNumberInput(e);
+                } else {
+                    // Texto - modo encriptar
+                    this.currentMode = 'encrypt';
+                    this.validateTextInput(e);
+                }
+                
+                this.updateModeIndicator();
+            }
+
+            validateTextInput(e) {
+                let value = e.target.value.toUpperCase();
+                // Solo permitir letras (incluyendo Ñ) y espacios para encriptación
+                value = value.replace(/[^A-ZÑ\s]/g, '');
+                e.target.value = value;
+            }
+
+            validateNumberInput(e) {
+                let value = e.target.value;
+                // Solo permitir números, espacios y guiones para desencriptación
+                value = value.replace(/[^\d\s-]/g, '');
+                e.target.value = value;
+            }
+
+            updateModeIndicator() {
+                if (this.currentMode === 'encrypt') {
+                    this.modeIndicator.className = 'mode-indicator mode-encrypt';
+                    this.modeIndicator.innerHTML = '<i class="bi bi-lock"></i> Modo: Encriptación (ingresa texto)';
+                    this.messageInput.placeholder = 'Ingresa tu mensaje aquí (letras A-Z, Ñ y espacios)...';
+                } else {
+                    this.modeIndicator.className = 'mode-indicator mode-decrypt';
+                    this.modeIndicator.innerHTML = '<i class="bi bi-unlock"></i> Modo: Desencriptación (ingresa números)';
+                    this.messageInput.placeholder = 'Ingresa números separados por espacios (ej: 8 23 15 8)...';
+                }
+            }
+
+            validateNumbers() {
+                const key = parseInt(this.keyInput.value);
+                const shift = parseInt(this.shiftInput.value);
+                
+                if (key <= 0) {
+                    this.keyInput.value = 1;
+                }
+                if (shift < 0) {
+                    this.shiftInput.value = 0;
+                }
+            }
+
+            showAlert(message, type = 'danger') {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} fade-in`;
+                alertDiv.innerHTML = `
+                    <i class="bi bi-${type === 'success' ? 'check-circle' : type === 'info' ? 'info-circle' : 'exclamation-triangle'}"></i>
+                    ${message}
+                `;
+                
+                this.alertContainer.innerHTML = '';
+                this.alertContainer.appendChild(alertDiv);
+                
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
+            }
+
+            getLetterPosition(letter) {
+                return this.alphabet.indexOf(letter.toUpperCase()) + 1;
+            }
+
+            getLetterFromPosition(position) {
+                return this.alphabet[position - 1] || '';
+            }
+
+            encrypt() {
+                const message = this.messageInput.value.trim().toUpperCase();
+                const key = parseInt(this.keyInput.value);
+                const shift = parseInt(this.shiftInput.value);
+
+                if (!this.validateEncryptInputs(message, key, shift)) return;
+
+                try {
+                    this.setLoading(true);
+                    
+                    const encryptedNumbers = [];
+                    
+                    for (let char of message) {
+                        if (char === ' ') {
+                            encryptedNumbers.push('0'); // Espacio representado como 0
+                        } else {
+                            const position = this.getLetterPosition(char);
+                            if (position === 0) {
+                                this.showAlert(`Error: La letra "${char}" no está en el alfabeto válido`);
+                                return;
+                            }
+                            const encrypted = (position * key) + shift;
+                            encryptedNumbers.push(encrypted.toString());
+                        }
+                    }
+
+                    const result = encryptedNumbers.join(' ');
+                    this.displayResult('encrypted', result);
+                    this.showAlert('¡Mensaje encriptado exitosamente!', 'success');
+                    
+                } catch (error) {
+                    this.showAlert('Error al encriptar el mensaje: ' + error.message);
+                } finally {
+                    this.setLoading(false);
+                }
+            }
+
+            decrypt() {
+                const message = this.messageInput.value.trim();
+                const key = parseInt(this.keyInput.value);
+                const shift = parseInt(this.shiftInput.value);
+
+                if (!this.validateDecryptInputs(message, key, shift)) return;
+
+                try {
+                    this.setLoading(true);
+                    this.decryptFromNumbers(message, key, shift);
+                } catch (error) {
+                    this.showAlert('Error al desencriptar el mensaje: ' + error.message);
+                } finally {
+                    this.setLoading(false);
+                }
+            }
+
+            decryptFromNumbers(numbersString, key, shift) {
+                const numbers = numbersString.trim().split(/\s+/);
+                const decryptedChars = [];
+
+                for (let numStr of numbers) {
+                    const num = parseInt(numStr);
+                    
+                    if (isNaN(num)) {
+                        this.showAlert('Formato inválido. Usa solo números separados por espacios');
+                        return;
+                    }
+
+                    if (num === 0) {
+                        decryptedChars.push(' '); // 0 representa espacio
+                    } else {
+                        const position = (num - shift) / key;
+                        
+                        if (!Number.isInteger(position) || position < 1 || position > this.alphabet.length) {
+                            this.showAlert(`Error: El número ${num} no puede ser desencriptado con K=${key} y S=${shift}. Verifica que los valores sean correctos.`);
+                            return;
+                        }
+                        
+                        const letter = this.getLetterFromPosition(position);
+                        decryptedChars.push(letter);
+                    }
+                }
+
+                const result = decryptedChars.join('');
+                this.displayResult('decrypted', result);
+                this.showAlert('¡Mensaje desencriptado exitosamente!', 'success');
+            }
+
+            validateEncryptInputs(message, key, shift) {
+                if (!message) {
+                    this.showAlert('Por favor, ingresa un mensaje para encriptar');
+                    return false;
+                }
+
+                if (!/^[A-ZÑ\s]+$/.test(message)) {
+                    this.showAlert('Para encriptar, el mensaje solo puede contener letras del alfabeto (A-Z, Ñ) y espacios');
+                    return false;
+                }
+
+                if (!key || key <= 0) {
+                    this.showAlert('La clave debe ser un número mayor a 0');
+                    return false;
+                }
+
+                if (isNaN(shift) || shift < 0) {
+                    this.showAlert('El desplazamiento debe ser un número mayor o igual a 0');
+                    return false;
+                }
+
+                return true;
+            }
+
+            validateDecryptInputs(message, key, shift) {
+                if (!message) {
+                    this.showAlert('Por favor, ingresa números para desencriptar');
+                    return false;
+                }
+
+                if (!/^[\d\s]+$/.test(message)) {
+                    this.showAlert('Para desencriptar, ingresa solo números separados por espacios');
+                    return false;
+                }
+
+                if (!key || key <= 0) {
+                    this.showAlert('La clave debe ser un número mayor a 0');
+                    return false;
+                }
+
+                if (isNaN(shift) || shift < 0) {
+                    this.showAlert('El desplazamiento debe ser un número mayor o igual a 0');
+                    return false;
+                }
+
+                return true;
+            }
+
+            displayResult(type, result) {
+                const element = type === 'encrypted' ? this.encryptedResult : this.decryptedResult;
+                element.innerHTML = `
+                    <button class="copy-btn" onclick="app.copyToClipboard('${type}')" title="Copiar">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
+                    ${result}
+                `;
+                element.classList.add('fade-in');
+            }
+
+            copyToClipboard(type) {
+                const element = type === 'encrypted' ? this.encryptedResult : this.decryptedResult;
+                const text = element.textContent.trim();
+                
+                if (text && !text.includes('aparecerá aquí')) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        this.showAlert('¡Copiado al portapapeles!', 'success');
+                    }).catch(() => {
+                        // Fallback para navegadores que no soportan clipboard API
+                        const textArea = document.createElement('textarea');
+                        textArea.value = text;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        try {
+                            document.execCommand('copy');
+                            this.showAlert('¡Copiado al portapapeles!', 'success');
+                        } catch (err) {
+                            this.showAlert('Error al copiar al portapapeles');
+                        }
+                        document.body.removeChild(textArea);
+                    });
+                }
+            }
+
+            clearAll() {
+                this.messageInput.value = '';
+                this.keyInput.value = '3';
+                this.shiftInput.value = '5';
+                this.encryptedResult.innerHTML = '<button class="copy-btn" id="copyEncrypted" title="Copiar"><i class="bi bi-clipboard"></i></button><em>El resultado aparecerá aquí...</em>';
+                this.decryptedResult.innerHTML = '<button class="copy-btn" id="copyDecrypted" title="Copiar"><i class="bi bi-clipboard"></i></button><em>El resultado aparecerá aquí...</em>';
+                this.alertContainer.innerHTML = '';
+                this.currentMode = 'encrypt';
+                this.updateModeIndicator();
+                this.showAlert('Campos limpiados', 'success');
+            }
+
+            setLoading(isLoading) {
+                const buttons = [this.encryptBtn, this.decryptBtn, this.clearBtn];
+                buttons.forEach(btn => {
+                    if (isLoading) {
+                        btn.classList.add('loading');
+                        btn.disabled = true;
+                    } else {
+                        btn.classList.remove('loading');
+                        btn.disabled = false;
+                    }
+                });
+            }
+        }
+
+        // Inicializar la aplicación
+        const app = new CryptoApp();
+
+        // Efectos adicionales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación de entrada
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
